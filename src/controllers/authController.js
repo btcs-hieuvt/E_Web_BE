@@ -59,6 +59,8 @@ export const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    console.log("email", email);
+    console.log("pw", password);
     if (!email || !password) {
       return res.status(404).send({
         success: false,
