@@ -1,7 +1,9 @@
 import express from "express";
 import {
   loginController,
+  refreshTokenController,
   registerController,
+  userLogout,
 } from "../controllers/authController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
 
@@ -9,6 +11,8 @@ const router = express.Router();
 
 router.post("/register", registerController);
 router.post("/login", loginController);
+router.post("/refresh", refreshTokenController);
+router.post("/logout", requireSignIn, userLogout);
 
 router.get("/test", requireSignIn, isAdmin, (req, res) => {
   console.log(req.user);
