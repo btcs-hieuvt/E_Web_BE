@@ -6,6 +6,7 @@ import {
   getSingleProductController,
   deleteProdutController,
   updateProductController,
+  getListProductByCategoryController,
 } from "../controllers/productController.js";
 
 const router = express.Router();
@@ -19,11 +20,15 @@ router.delete(
   isAdmin,
   deleteProdutController
 );
-router.post(
+router.put(
   "/update-product/:pid",
   requireSignIn,
   isAdmin,
   updateProductController
 );
+
+//get list product by category
+
+router.get("/category/:slug", getListProductByCategoryController);
 
 export default router;

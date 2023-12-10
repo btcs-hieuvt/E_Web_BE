@@ -1,3 +1,4 @@
+import categoryModel from "../models/categoryModel.js";
 import productModel from "../models/productModel.js";
 import slugify from "slugify";
 
@@ -69,6 +70,41 @@ export const getProductController = async (req, res) => {
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit);
+    return res.status(200).send({
+      success: true,
+      message: "get product successfully",
+      result: {
+        data: products,
+        totalPage: totalPages,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({
+      success: false,
+      message: "Error in get product",
+      error,
+    });
+  }
+};
+
+export const getListProductByCategoryController = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+
+    const category = await categoryModel.findOne({ slug: req.params.slug });
+
+    const total = await productModel.countDocuments({ category: category._id });
+    const totalPages = Math.ceil(total / limit);
+
+    const products = await productModel
+      .find({ category: category._id })
+      .populate("category")
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
+
     return res.status(200).send({
       success: true,
       message: "get product successfully",
