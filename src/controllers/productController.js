@@ -220,3 +220,27 @@ export const updateProductController = async (req, res) => {
     });
   }
 };
+
+export const searchProduct = async (req, res) => {
+  try {
+    const k = req.query.k;
+
+    const regex = new RegExp(k, "i");
+
+    const searchResult = await productModel.find({
+      $or: [{ name: { $regex: regex } }, { description: { $regex: regex } }],
+    });
+
+    return res.status(200).send({
+      success: true,
+      message: "search success",
+      result: searchResult,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: true,
+      message: "error while search",
+      result: error,
+    });
+  }
+};
