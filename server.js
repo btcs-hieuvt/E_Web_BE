@@ -10,6 +10,7 @@ import userRoute from "./src/routes/userRoute.js";
 import categoryRoute from "./src/routes/categoryRoute.js";
 import productRoute from "./src/routes/productRoute.js";
 import mediaRoute from "./src/routes/mediaRoute.js";
+import orderRoute from './src/routes/orderRouter.js'
 import bodyParser from "body-parser";
 
 //rest object
@@ -38,6 +39,7 @@ app.use("/api/v1/user", userRoute);
 app.use("/api/v1/category", categoryRoute);
 app.use("/api/v1/product", productRoute);
 app.use("/api/v1/media", mediaRoute);
+app.use("/api/v1/order",orderRoute)
 
 //rest Api
 app.get("/", (req, res) => {
