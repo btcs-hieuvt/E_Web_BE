@@ -4,8 +4,18 @@ const orderSchema = new mongoose.Schema(
   {
     product: [
       {
-        type: mongoose.isObjectIdOrHexString,
-        ref: "Products",
+        id: {
+          type: mongoose.ObjectId,
+          ref: "Products",
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
       },
     ],
     payment: {},

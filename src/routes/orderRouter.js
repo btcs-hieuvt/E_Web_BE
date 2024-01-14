@@ -1,9 +1,9 @@
 import express from "express";
 import { requireSignIn } from "../middlewares/authMiddleware.js";
-import { paymentController } from "../controllers/orderController.js";
+import { getOrderController } from "../controllers/orderController.js";
 
 const router = express.Router();
 
-router.post("/payment", requireSignIn, paymentController);
+router.get("/get-orders", requireSignIn, getOrderController);
 
 export default router;
